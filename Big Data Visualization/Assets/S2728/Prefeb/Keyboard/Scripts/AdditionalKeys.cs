@@ -11,16 +11,16 @@ public class AdditionalKeys : MonoBehaviour
     private Sprite _changesprite;
     private Sprite _normalsprite;
     int _delay = 0;
-    //public GameManager _gameManager;
+    public GameManager _gameManager;
 
     public KeyboardScript _keyboardreference;
 
     private void Start()
     {
-        //_normalsprite = _sprite.sprite;
+        _normalsprite = _sprite.sprite;
         //_empreference = GameObject.Find("Main_menu_Screen").GetComponent<EmployeeDetails>();
-        //_keyboardreference = GameObject.Find("Keyboard").GetComponent<KeyboardScript>();
-        //_gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        _keyboardreference = GameObject.Find("Keyboard").GetComponent<KeyboardScript>();
+        _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -29,11 +29,10 @@ public class AdditionalKeys : MonoBehaviour
         {
             if (_delay == 0 && this.gameObject.name == "Backspace")
             {
-                _delay = 1;
                 _sprite.sprite = _changesprite;
                 StartCoroutine(Button_Normal());
                 StartCoroutine(Type_Normal());
-                //_empreference.backspace();
+                _gameManager.backspace();
             }
             else if (_delay == 0 && this.gameObject.name == "Caps_lower")
             {
@@ -59,19 +58,7 @@ public class AdditionalKeys : MonoBehaviour
             {
                 _keyboardreference.AllkeyboardDisable();
             }
-
-            //if (other.name == "L_Touch_Pointer")
-            //{
-            //    _gameManager.hand = "L";
-            //    _gameManager.HapticFeedback();
-            //}
-            //else if (other.name == "R_Touch_Pointer")
-            //{
-            //    _gameManager.hand = "R";
-            //    _gameManager.HapticFeedback();
-            //}
-
-            //_gameManager.Button_Press();
+            _gameManager.Button_Press();
         }
     }
 
@@ -81,6 +68,7 @@ public class AdditionalKeys : MonoBehaviour
     {
         yield return new WaitForSeconds(0.15f);
         _sprite.sprite = _normalsprite;
+        _gameManager.Button_Release();
     }
 
     IEnumerator Type_Normal()

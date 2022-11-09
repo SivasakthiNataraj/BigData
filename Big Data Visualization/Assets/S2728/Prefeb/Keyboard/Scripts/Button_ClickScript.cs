@@ -14,13 +14,13 @@ public class Button_ClickScript : MonoBehaviour
     //public EmployeeDetails _empreference;
     int _delay = 0;
 
-    //public GameManager _gameManager;
+    public GameManager _gameManager;
 
     private void Start()
     {
-        //_normalsprite = _sprite.sprite;
+        _normalsprite = _sprite.sprite;
         //_empreference = GameObject.Find("Main_menu_Screen").GetComponent<EmployeeDetails>();
-        //_gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -31,20 +31,12 @@ public class Button_ClickScript : MonoBehaviour
             {
                 _delay = 1;
                 _sprite.sprite = _changesprite;
-                if (other.name == "L_Touch_Pointer")
-                {
-                    //_gameManager.hand = "L";
-                }
-                else if (other.name == "R_Touch_Pointer")
-                {
-                    //_gameManager.hand = "R";
-                }
-                //_gameManager.HapticFeedback();
+                
                 StartCoroutine(Button_Normal());
                 StartCoroutine(Type_Normal());
-                //_empreference.alphabetFunction(alphabet_sent);
+                _gameManager.alphabetFunction(alphabet_sent);
             }
-            //_gameManager.Button_Press();
+            _gameManager.Button_Press();
         }
     }   
 
@@ -52,6 +44,7 @@ public class Button_ClickScript : MonoBehaviour
     {
         yield return new WaitForSeconds(0.15f);
         _sprite.sprite = _normalsprite;
+        _gameManager.Button_Release();
     }
 
     IEnumerator Type_Normal()

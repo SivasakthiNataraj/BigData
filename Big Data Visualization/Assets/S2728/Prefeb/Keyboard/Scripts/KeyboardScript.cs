@@ -18,12 +18,12 @@ public class KeyboardScript : MonoBehaviour
 
 
     [SerializeField]
-    //private GameManager _gameManager;
+    private CollisionScript _CollisionScript;
 
     // Start is called before the first frame update
     void Start()
     {
-        //_gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        _CollisionScript = GameObject.Find("Username").GetComponent<CollisionScript>();
     }
 
     public void ChangeKeyboard()
@@ -60,7 +60,7 @@ public class KeyboardScript : MonoBehaviour
         lowerkeysBorard.SetActive(true);
         uppercaseBoard.SetActive(false);
         numpad.SetActive(false);
-        higlightDisable.SetActive(false);
+        _CollisionScript.usernameHiglightsDisable();
         _keyboard.SetActive(false);
     }
 
